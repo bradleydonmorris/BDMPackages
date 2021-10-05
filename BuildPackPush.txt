@@ -1,3 +1,0 @@
-dotnet build --configuration Release
-dotnet nuget push "..\builds\*.nupkg" ---source C:\Users\bradley.morris\source\repos\nuget
-dotnet nuget push "\.builds\*.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json
