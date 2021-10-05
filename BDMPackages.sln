@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31613.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BDMCommandLine", "BDMCommandLine\BDMCommandLine.csproj", "{0E5ED84D-7D03-4808-8EFA-3C7B0020DA4B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".repofiles", ".repofiles", "{7BEEBAF9-DECF-488C-AC7B-A6EAD8630486}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		BuildPackPush.txt = BuildPackPush.txt
+		LICENSE = LICENSE
+		Nuget.keys.txt = Nuget.keys.txt
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHarness", "TestHarness\TestHarness.csproj", "{FBEEF466-3559-47BF-92EF-96EDB1212F7B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BDMJsonProcs", "BDMJsonProcs\BDMJsonProcs.csproj", "{D4ECD1A4-4DB2-450A-8619-F434AD81B749}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BDMSyncHttpClient", "BDMSyncHttpClient\BDMSyncHttpClient.csproj", "{7826DA5C-7238-490A-B867-1BC65B473285}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0E5ED84D-7D03-4808-8EFA-3C7B0020DA4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E5ED84D-7D03-4808-8EFA-3C7B0020DA4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E5ED84D-7D03-4808-8EFA-3C7B0020DA4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E5ED84D-7D03-4808-8EFA-3C7B0020DA4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBEEF466-3559-47BF-92EF-96EDB1212F7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBEEF466-3559-47BF-92EF-96EDB1212F7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBEEF466-3559-47BF-92EF-96EDB1212F7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBEEF466-3559-47BF-92EF-96EDB1212F7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4ECD1A4-4DB2-450A-8619-F434AD81B749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4ECD1A4-4DB2-450A-8619-F434AD81B749}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4ECD1A4-4DB2-450A-8619-F434AD81B749}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4ECD1A4-4DB2-450A-8619-F434AD81B749}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7826DA5C-7238-490A-B867-1BC65B473285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7826DA5C-7238-490A-B867-1BC65B473285}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7826DA5C-7238-490A-B867-1BC65B473285}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7826DA5C-7238-490A-B867-1BC65B473285}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D3C0C07D-8527-419E-9E58-720F5313D720}
+	EndGlobalSection
+EndGlobal
