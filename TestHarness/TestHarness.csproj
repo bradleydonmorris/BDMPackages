@@ -15,4 +15,10 @@
     <OutputPath>..\.builds\Debug</OutputPath>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BDMCommandLine\BDMCommandLine.csproj" />
+    <ProjectReference Include="..\BDMJsonProcs\BDMJsonProcs.csproj" />
+    <ProjectReference Include="..\BDMSyncHttpClient\BDMSyncHttpClient.csproj" />
+  </ItemGroup>
+
 </Project>
