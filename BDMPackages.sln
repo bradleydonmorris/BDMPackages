@@ -14,11 +14,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".repofiles", ".repofiles", 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHarness", "TestHarness\TestHarness.csproj", "{FBEEF466-3559-47BF-92EF-96EDB1212F7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestHarness", "TestHarness\TestHarness.csproj", "{FBEEF466-3559-47BF-92EF-96EDB1212F7B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BDMJsonProcs", "BDMJsonProcs\BDMJsonProcs.csproj", "{D4ECD1A4-4DB2-450A-8619-F434AD81B749}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BDMSyncHttpClient", "BDMSyncHttpClient\BDMSyncHttpClient.csproj", "{7826DA5C-7238-490A-B867-1BC65B473285}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDMSerilogProc", "BDMSerilogProc\BDMSerilogProc.csproj", "{AF719E57-65D5-4010-B4D9-10569E1C40E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,10 @@ Global
 		{7826DA5C-7238-490A-B867-1BC65B473285}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7826DA5C-7238-490A-B867-1BC65B473285}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7826DA5C-7238-490A-B867-1BC65B473285}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF719E57-65D5-4010-B4D9-10569E1C40E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF719E57-65D5-4010-B4D9-10569E1C40E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF719E57-65D5-4010-B4D9-10569E1C40E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF719E57-65D5-4010-B4D9-10569E1C40E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

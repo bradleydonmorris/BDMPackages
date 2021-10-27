@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BDMCommandLine\BDMCommandLine.csproj" />
     <ProjectReference Include="..\BDMJsonProcs\BDMJsonProcs.csproj" />
+    <ProjectReference Include="..\BDMSerilogProc\BDMSerilogProc.csproj" />
     <ProjectReference Include="..\BDMSyncHttpClient\BDMSyncHttpClient.csproj" />
   </ItemGroup>
 
