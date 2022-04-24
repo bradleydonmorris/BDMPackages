@@ -12,19 +12,21 @@ namespace BDMCommandLine
 		{
 			this.Arguments = new();
 			this.Commands = new();
+			this.CommandAliases = new();
 		}
 
 		public ICommand ActiveCommand { get; set; }
 
 		public Dictionary<String, String> Arguments { get; set; }
 		public Dictionary<String, ICommand> Commands { get; set; }
+		public Dictionary<String, String> CommandAliases { get; set; }
 
 		public String SubCommand { get; set; }
 		public Boolean IsVerified { get; set; }
 
 		public void ShowHelp()
 		{
-			if (this.SubCommand != "Invalid")
+			if (this.IsVerified)
 				CommandLine.OutputTextCollection(this.Commands[this.SubCommand].GetHelpText());
 			else CommandLine.OutputTextCollection(this.GetHelpText());
 		}
@@ -36,11 +38,10 @@ namespace BDMCommandLine
 			foreach (String key in this.Commands.Keys)
 			{
 				if (!isFirst)
-					returnValue.Add(ConsoleText.BlankLines(2));
+					returnValue.Add(ConsoleText.BlankLine());
 				else isFirst = false;
 				returnValue.AddRange(this.Commands[key].GetHelpText());
 			}
-			returnValue.Add(ConsoleText.BlankLine());
 			returnValue.Add(ConsoleText.BlankLine());
 			return returnValue.ToArray();
 		}
@@ -48,23 +49,13 @@ namespace BDMCommandLine
 		private String[] VerifyCommand()
 		{
 			List<String> returnValue = new();
-			if (this.SubCommand == "Invalid")
+			if (this.SubCommand.ToLower() == "invalid")
 				returnValue.Add("Command is invalid");
 			else
 			{
 				this.ActiveCommand = this.Commands[this.SubCommand];
 				if (this.ActiveCommand.Arguments != null)
-					foreach (CommandArgument commandArgument in this.ActiveCommand.Arguments)
-					{
-						String alert = null;
-						if (this.Arguments.ContainsKey(commandArgument.Name))
-							alert = commandArgument.SetValue(this.Arguments[commandArgument.Name]);
-						else if (commandArgument.Alias != null && this.Arguments.ContainsKey(commandArgument.Alias))
-							alert = commandArgument.SetValue(this.Arguments[commandArgument.Alias]);
-						if (!String.IsNullOrEmpty(alert))
-							returnValue.Add(alert);
-					}
-					returnValue.AddRange(this.ActiveCommand.VerifyArguments(this.ActiveCommand.Arguments));
+					returnValue.AddRange(this.ActiveCommand.VerifyArguments(this.Arguments));
 			}
 			if (returnValue.Count == 0)
 				this.IsVerified = true;
@@ -72,15 +63,25 @@ namespace BDMCommandLine
 				this.IsVerified = false;
 			return returnValue.ToArray();
 		}
-		public void AddCommand(ICommand command) => this.Commands.Add(command.Name.ToLower(), command);
+
+		public void AddCommand(ICommand command)
+		{
+			String commandNameLower = command.Name.ToLower();
+			this.Commands.Add(commandNameLower, command);
+			foreach (String alias in command.Aliases)
+				this.CommandAliases.Add(alias.ToLower(), commandNameLower);
+			if (!this.CommandAliases.ContainsKey(commandNameLower))
+				this.CommandAliases.Add(commandNameLower, commandNameLower);
+		}
 
 		public Boolean ParseArguments(String[] arguments)
 		{
 			if (arguments.Length > 0)
 			{
-				this.SubCommand = arguments[0].ToLower();
-				if (!this.Commands.ContainsKey(this.SubCommand))
-					this.SubCommand = this.Commands.First(c => c.Value.Aliases.Contains(this.SubCommand)).Key;
+				String subCommand = arguments[0].ToLower();
+				this.SubCommand = "invalid";
+				if (this.CommandAliases.ContainsKey(subCommand))
+					this.SubCommand = this.CommandAliases[subCommand];
 				if (String.IsNullOrWhiteSpace(this.SubCommand))
 					this.SubCommand = "invalid";
 			}
@@ -143,12 +144,34 @@ namespace BDMCommandLine
 		{
 			foreach (ConsoleText text in texts)
 			{
-				Console.ResetColor();
-				Console.ForegroundColor = text.ForegroundColor;
-				Console.BackgroundColor = text.BackgroundColor;
-				Console.Write(text.Text);
-				Console.ResetColor();
+				System.Console.ResetColor();
+				System.Console.ForegroundColor = text.ForegroundColor;
+				System.Console.BackgroundColor = text.BackgroundColor;
+				System.Console.Write(text.Text);
+				System.Console.ResetColor();
 			}
+		}
+
+		public static void OutputTextCollection(List<ConsoleText> texts)
+		{
+			foreach (ConsoleText text in texts)
+			{
+				System.Console.ResetColor();
+				System.Console.ForegroundColor = text.ForegroundColor;
+				System.Console.BackgroundColor = text.BackgroundColor;
+				System.Console.Write(text.Text);
+				System.Console.ResetColor();
+			}
+		}
+
+		public static String ReadLine()
+        {
+			return System.Console.ReadLine();
+        }
+
+		public static void Clear()
+		{
+			System.Console.Clear();
 		}
 
 		public void Execute()

@@ -9,8 +9,8 @@ namespace BDMCommandLine
 {
 	public class ConsoleText
 	{
-		public static ConsoleColor DefaultForegroundColor = Console.ForegroundColor;
-		public static ConsoleColor DefaultBackgroundColor = Console.BackgroundColor;
+		public static ConsoleColor DefaultForegroundColor = System.Console.ForegroundColor;
+		public static ConsoleColor DefaultBackgroundColor = System.Console.BackgroundColor;
 
 		public ConsoleColor ForegroundColor { get; set; }
 		public ConsoleColor BackgroundColor { get; set; }

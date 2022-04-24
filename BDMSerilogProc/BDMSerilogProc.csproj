@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Authors>Bradley Don Morris</Authors>
     <Description>Sink for Serilog to send data to a SQL stored procedure as JSON.</Description>
     <Copyright>Copyright © 2021 Bradley Don Morris</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://bradleydonmorris.me/packages/BDMSerilogProc</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bradleydonmorris/BDMPackages</RepositoryUrl>
-    <Version>1.0.5</Version>
+    <Version>1.0.7</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
@@ -32,6 +32,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BDMJsonConverters\BDMJsonConverters.csproj" />
   </ItemGroup>
 
 </Project>

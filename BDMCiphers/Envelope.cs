@@ -61,7 +61,7 @@ namespace BDMCiphers
         {
             String passphrase = this.Passphrase;
             String content = this.Content;
-            String hash = String.Empty;
+            String hash; // = String.Empty;
             passphrase = RSACipher.Decrypt(
                 privateEncryptionKey,
                 passphrase
@@ -105,7 +105,7 @@ namespace BDMCiphers
         {
             String passphrase = this.Passphrase;
             String content = this.Content;
-            String hash = String.Empty;
+            String hash; // = String.Empty;
             passphrase = RSACipher.Decrypt(
                 privateEncryptionKey,
                 passphrase
@@ -141,7 +141,7 @@ namespace BDMCiphers
             );
         }
 
-        public static Envelope Deserialize(String data)
+        public static Envelope? Deserialize(String data)
         {
             return JsonConvert.DeserializeObject<Envelope>
             (
@@ -149,7 +149,7 @@ namespace BDMCiphers
                 new JsonSerializerSettings()
                 {
                     DateFormatString = "yyyy-MM-dd HH:mm:ss.fffffffK",
-                    Formatting = Newtonsoft.Json.Formatting.Indented,
+                    Formatting = Formatting.Indented,
                     NullValueHandling = NullValueHandling.Include
                 }
             );
@@ -161,9 +161,6 @@ namespace BDMCiphers
             {
                 State = EnvelopeState.Errored,
                 StateComment = stateComment,
-                Hash = null,
-                Content = null,
-                Passphrase = null
             };
         }
 

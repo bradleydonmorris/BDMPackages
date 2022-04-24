@@ -14,6 +14,8 @@ namespace TestHarness
 	{
 		static void Main() //(string[] args)
 		{
+			//BDMCommandLine.ICommand 
+
 			Log.Logger = new LoggerConfiguration()
 				.WriteTo.BDMSerilogProc(
 					"Server=localhost;Initial Catalog=AAONEnterprise;User Id=AAONEnterprise.Logger;Password=cf$g0f3FMxvkuwedSD#@IbHd162Vrm*5#SE;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Application Name=SerilogPoC;",
