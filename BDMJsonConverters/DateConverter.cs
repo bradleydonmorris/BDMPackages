@@ -22,10 +22,7 @@ namespace BDMJsonConverters
 		{
 			DateTime? returnValue = null;
 			if (reader.TokenType == JsonToken.String)
-			{
-				JObject value = JObject.Load(reader);
-				returnValue = DateTime.Parse(value.ToString() + " 00:00:00.0000000");
-			}
+				returnValue = DateTime.Parse((reader.Value as String) + " 00:00:00.0000000");
 			return returnValue;
 		}
 

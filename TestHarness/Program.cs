@@ -14,6 +14,10 @@ namespace TestHarness
 	{
 		static void Main() //(string[] args)
 		{
+			BDMEntityNumbering.SequentialIdentifier s = new("ABC", "XYZ", "0001000200000003XYZ");
+			String four = s.GetNext();
+			String five = s.GetNext();
+
 			//BDMCommandLine.ICommand 
 
 			Log.Logger = new LoggerConfiguration()
