@@ -85,7 +85,7 @@ namespace BDMCommandLine
 				returnValue.Add(ConsoleText.BlankLine());
 				returnValue.Add(ConsoleText.White($"{"",26}Default: {this._DefaultValue}"));
 			}
-			if (this._Options != null && this._Options.Length > 0)
+			if (this._Options is not null && this._Options.Length > 0)
 			{
 				returnValue.Add(ConsoleText.BlankLine());
 				returnValue.Add(ConsoleText.Blue($"{"",26}Options:"));
@@ -109,7 +109,7 @@ namespace BDMCommandLine
 				this._IsVerified = false;
 				returnValue = $"{this._Name}: Value is required.";
 			}
-			if (this.Options != null && this._Options.Length > 0)
+			if (this.Options is not null && this._Options.Length > 0)
 			{
 				if (this._Options.Any(o => o.Value.ToLower().Equals(value.ToLower())))
 				{

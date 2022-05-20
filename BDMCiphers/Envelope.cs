@@ -35,6 +35,15 @@ namespace BDMCiphers
             this.Passphrase = String.Empty;
         }
 
+        public Envelope(String content, String passphrase)
+        {
+            this.State = EnvelopeState.Unknown;
+            this.StateComment = String.Empty;
+            this.Hash = String.Empty;
+            this.Content = content;
+            this.Passphrase = passphrase;
+        }
+
         public void Seal(String publicEncryptionKey, String privateSigningKey)
         {
             using SHA256 sha256 = SHA256.Create();
@@ -127,22 +136,28 @@ namespace BDMCiphers
             this.State = EnvelopeState.Opened;
         }
 
-        public String Serialize()
+        public String Serialize(Boolean minify, Boolean base64Encode)
         {
-            return JsonConvert.SerializeObject
+            String jsonString = JsonConvert.SerializeObject
             (
                 this,
                 new JsonSerializerSettings()
                 {
                     DateFormatString = "yyyy-MM-dd HH:mm:ss.fffffffK",
-                    Formatting = Newtonsoft.Json.Formatting.Indented,
+                    Formatting = (minify ? Formatting.None : Formatting.Indented),
                     NullValueHandling = NullValueHandling.Include
                 }
             );
+            if (base64Encode)
+                return Convert.ToBase64String(Encoding.UTF8.GetBytes(jsonString));
+            else
+                return jsonString;
         }
 
-        public static Envelope? Deserialize(String data)
+        public static Envelope? Deserialize(String data, Boolean isBase65Encoded)
         {
+            if (isBase65Encoded)
+                data = Encoding.UTF8.GetString(Convert.FromBase64String(data));
             return JsonConvert.DeserializeObject<Envelope>
             (
                 data,
@@ -163,6 +178,5 @@ namespace BDMCiphers
                 StateComment = stateComment,
             };
         }
-
     }
 }

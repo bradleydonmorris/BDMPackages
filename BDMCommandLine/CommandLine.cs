@@ -54,7 +54,7 @@ namespace BDMCommandLine
 			else
 			{
 				this.ActiveCommand = this.Commands[this.SubCommand];
-				if (this.ActiveCommand.Arguments != null)
+				if (this.ActiveCommand.Arguments is not null)
 					returnValue.AddRange(this.ActiveCommand.VerifyArguments(this.Arguments));
 			}
 			if (returnValue.Count == 0)

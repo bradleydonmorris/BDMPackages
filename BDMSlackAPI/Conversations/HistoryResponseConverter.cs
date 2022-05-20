@@ -18,13 +18,13 @@ namespace BDMSlackAPI.Conversations
 			if (reader.TokenType == JsonToken.StartObject)
 			{
 				JObject response = JObject.Load(reader);
-				if (response["ok"] != null)
+				if (response["ok"] is not null)
 					returnValue.Ok = response["ok"].Value<Boolean>();
-				if (response["response_metadata"] != null)
+				if (response["response_metadata"] is not null)
 					returnValue.ResponseMetaData = response["response_metadata"].ToObject<ResponseMetaData>(serializer);
-				if (response["has_more"] != null)
+				if (response["has_more"] is not null)
 					returnValue.Ok = response["has_more"].Value<Boolean>();
-				if (response["scheduled_messages"] != null)
+				if (response["scheduled_messages"] is not null)
 					returnValue.Messages = response["messages"].ToObject<List<HistoryMessage>>(serializer);
 			}
 			return returnValue;

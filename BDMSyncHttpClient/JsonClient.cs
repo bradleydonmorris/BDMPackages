@@ -57,15 +57,13 @@ namespace BDMSyncHttpClient
 			httpWebRequest.Credentials = credentials;
 			foreach (KeyValuePair<String, String> keyValuePair in headers)
 				httpWebRequest.Headers.Add(keyValuePair.Key, keyValuePair.Value);
-			if (body != null)
+			if (body is not null)
 			{
 				Byte[] bytesBody = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(body));
-				using (Stream requestStream = httpWebRequest.GetRequestStream())
-				{
+                using Stream requestStream = httpWebRequest.GetRequestStream();
 					requestStream.Write(bytesBody, 0, bytesBody.Length);
 					requestStream.Close();
-				}
-			}
+            }
 			using (HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
 			using (Stream responseStream = httpWebResponse.GetResponseStream())
 			using (StreamReader streamReader = new(responseStream, Encoding.UTF8))
@@ -85,15 +83,13 @@ namespace BDMSyncHttpClient
 			httpWebRequest.Credentials = credentials;
 			foreach (KeyValuePair<String, String> keyValuePair in headers)
 				httpWebRequest.Headers.Add(keyValuePair.Key, keyValuePair.Value);
-			if (body != null)
+			if (body is not null)
 			{
 				Byte[] bytesBody = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(body));
-				using (Stream requestStream = httpWebRequest.GetRequestStream())
-				{
+                using Stream requestStream = httpWebRequest.GetRequestStream();
 					requestStream.Write(bytesBody, 0, bytesBody.Length);
 					requestStream.Close();
-				}
-			}
+            }
 			using (HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
 			using (Stream responseStream = httpWebResponse.GetResponseStream())
 			using (StreamReader streamReader = new(responseStream, Encoding.UTF8))
@@ -113,15 +109,13 @@ namespace BDMSyncHttpClient
 			httpWebRequest.Credentials = credentials;
 			foreach (KeyValuePair<String, String> keyValuePair in headers)
 				httpWebRequest.Headers.Add(keyValuePair.Key, keyValuePair.Value);
-			if (body != null)
+			if (body is not null)
 			{
 				Byte[] bytesBody = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(body));
-				using (Stream requestStream = httpWebRequest.GetRequestStream())
-				{
+                using Stream requestStream = httpWebRequest.GetRequestStream();
 					requestStream.Write(bytesBody, 0, bytesBody.Length);
 					requestStream.Close();
-				}
-			}
+            }
 			using (HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
 			using (Stream responseStream = httpWebResponse.GetResponseStream())
 			using (StreamReader streamReader = new(responseStream, Encoding.UTF8))

@@ -43,7 +43,7 @@ namespace BDMSerilogProc
             this.Source = excption.Source;
             this.StackTrace = excption.StackTrace;
             this.TargetSite = excption.TargetSite;
-            if (excption.InnerException != null)
+            if (excption.InnerException is not null)
                 this.InnerException = new(excption.InnerException);
         }
     }

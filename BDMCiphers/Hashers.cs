@@ -26,7 +26,7 @@ namespace BDMCiphers
             var bytes = new byte[256 / 8];
             using (var random = RandomNumberGenerator.Create())
                 random.GetBytes(bytes);
-            BigInteger dividend = new BigInteger(bytes);
+            BigInteger dividend = new(bytes);
             StringBuilder stringBuilder = new();
             while (dividend != 0)
             {

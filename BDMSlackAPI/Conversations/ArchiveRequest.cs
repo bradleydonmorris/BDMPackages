@@ -10,13 +10,10 @@ namespace BDMSlackAPI.Conversations
 		[JsonProperty("channel")]
 		public String Channel { get; set; }
 
-		public override String FormURLEncode()
+		public override IEnumerable<KeyValuePair<String, String>> ToPairs()
 		{
-			Dictionary<String, Object> attributes = new()
-            {
-				{ "channel", this.Channel }
-			};
-			return base.FormURLEncodeAttributes(attributes);
+			yield return new KeyValuePair<String, String>("token", base.Token);
+			yield return new KeyValuePair<String, String>("channel", this.Channel);
 		}
 	}
 }

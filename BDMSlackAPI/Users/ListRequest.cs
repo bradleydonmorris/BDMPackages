@@ -39,16 +39,13 @@ namespace BDMSlackAPI.Users
 		[JsonProperty("team_id")]
 		public String TeamId { get; set; }
 
-		public override String FormURLEncode()
+		public override IEnumerable<KeyValuePair<String, String>> ToPairs()
 		{
-			Dictionary<String, Object> attributes = new()
-            {
-				{ "cursor", this.Cursor },
-				{ "include_locale", this.IncludeLocale },
-				{ "limit", this.Limit },
-				{ "team_id", this.TeamId }
-			};
-			return base.FormURLEncodeAttributes(attributes);
+			yield return new KeyValuePair<String, String>("token", base.Token);
+			yield return new KeyValuePair<String, String>("cursor", this.Cursor);
+			yield return new KeyValuePair<String, String>("include_locale", this.IncludeLocale.ToString());
+			yield return new KeyValuePair<String, String>("limit", this.Limit.ToString());
+			yield return new KeyValuePair<String, String>("team_id", this.TeamId);
 		}
 	}
 }

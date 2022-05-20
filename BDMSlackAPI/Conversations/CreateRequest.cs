@@ -13,14 +13,11 @@ namespace BDMSlackAPI.Conversations
 		[JsonProperty("is_private")]
 		public Boolean IsPrivate { get; set; }
 
-		public override String FormURLEncode()
+		public override IEnumerable<KeyValuePair<String, String>> ToPairs()
 		{
-			Dictionary<String, Object> attributes = new()
-            {
-				{ "name", this.Name },
-				{ "is_private", String.Join(",", this.IsPrivate) }
-			};
-			return base.FormURLEncodeAttributes(attributes);
+			yield return new KeyValuePair<String, String>("token", base.Token);
+			yield return new KeyValuePair<String, String>("name", this.Name);
+			yield return new KeyValuePair<String, String>("is_private", this.IsPrivate.ToString());
 		}
 	}
 }

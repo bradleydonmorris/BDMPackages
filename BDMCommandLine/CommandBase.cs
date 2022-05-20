@@ -53,7 +53,7 @@ namespace BDMCommandLine
 		public virtual String[] VerifyArguments(Dictionary<String, String> arguments)
 		{
 			List<String> returnValue = new();
-			if (this._Arguments != null && this._Arguments.Count > 0)
+			if (this._Arguments is not null && this._Arguments.Count > 0)
 			{
 				foreach (String providedArgumentKey in arguments.Keys)
 				{
@@ -80,7 +80,7 @@ namespace BDMCommandLine
 			returnValue.Add(ConsoleText.White($"   {this._Description}"));
 			returnValue.Add(ConsoleText.BlankLine());
 			returnValue.Add(ConsoleText.White($"   Usage: {this.Usage}"));
-			if (this._Arguments != null && this._Arguments.Count > 0)
+			if (this._Arguments is not null && this._Arguments.Count > 0)
 			{
 				returnValue.Add(ConsoleText.BlankLine());
 				returnValue.Add(ConsoleText.White("   Arguments: ("));

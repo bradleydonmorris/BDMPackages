@@ -11,13 +11,10 @@ namespace BDMSlackAPI.Users
 		[JsonProperty("email")]
 		public String Email { get; set; }
 
-		public override String FormURLEncode()
+		public override IEnumerable<KeyValuePair<String, String>> ToPairs()
 		{
-			Dictionary<String, Object> attributes = new()
-            {
-				{ "email", this.Email }
-			};
-			return base.FormURLEncodeAttributes(attributes);
+			yield return new KeyValuePair<String, String>("token", base.Token);
+			yield return new KeyValuePair<String, String>("email", this.Email);
 		}
 	}
 }

@@ -18,7 +18,7 @@ namespace BDMSerilogProc
             this.Properties = new();
             foreach (KeyValuePair<String, LogEventPropertyValue> property in logEvent.Properties)
             {
-                if (property.Value == null)
+                if (property.Value is null)
                     this.Properties.Add(property.Key, null);
                 else if (property.Value is ScalarValue scalarValue)
                     this.Properties.Add(property.Key, scalarValue.Value);

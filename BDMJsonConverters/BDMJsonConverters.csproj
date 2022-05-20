@@ -10,7 +10,7 @@
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<Description>Converters for Newtonsoft Json Library.</Description>
 		<Copyright>Copyright © 2021 Bradley Don Morris</Copyright>
-		<Version>1.0.8</Version>
+		<Version>1.1.0</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -22,7 +22,7 @@ namespace TestHarness
 			List<BDMSlackAPI.Files.UploadRequest> templateFiles = new();
 			List<BDMSlackAPI.Users.Member> ownerAdminMembers = this.GetOwnersAndAdmins();
 			List<String> ownersAndAdmins = new();
-			if (ownerAdminMembers != null)
+			if (ownerAdminMembers is not null)
 				ownersAndAdmins = ownerAdminMembers
 					.Select(m => m.Id).ToList();
 			if (Directory.Exists(localMissionDirectory))
@@ -89,7 +89,7 @@ namespace TestHarness
 			if (!setPurposeResponse.Ok)
 				throw new Exception("Unable to set purpose");
 
-			if (usersToInvite != null && usersToInvite.Count > 0)
+			if (usersToInvite is not null && usersToInvite.Count > 0)
 			{
 				BDMSlackAPI.Conversations.InviteResponse inviteResponse = this._Slack.Conversations.Invite
 				(
@@ -102,7 +102,7 @@ namespace TestHarness
 				if (!inviteResponse.Ok)
 					throw new Exception("Unable to invite owers and admins");
 			}
-			if (filesToPost != null && filesToPost.Count > 0)
+			if (filesToPost is not null && filesToPost.Count > 0)
 			{
 				List<String> channels = new(new String[] { createResponse.Conversation.Id });
 				foreach (BDMSlackAPI.Files.UploadRequest uploadRequest in filesToPost)

@@ -16,7 +16,7 @@ namespace BDMSerilogProc
             String inputParamName,
             LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum)
         {
-            if (loggerConfiguration == null)
+            if (loggerConfiguration is null)
                 throw new ArgumentNullException(nameof(loggerConfiguration));
             return loggerConfiguration.Sink(new BDMSerilogProcSink(
                 connectionString,
@@ -64,7 +64,7 @@ namespace BDMSerilogProc
 		public static void WriteProperty(this JsonWriter writer, JsonSerializer serializer, Object name, Object value, Boolean includeNull = false)
 		{
 			writer.WritePropertyName(name.ToString());
-			if (value != null)
+			if (value is not null)
 				serializer.Serialize(writer, value.ToString());
 			else if (includeNull)
 				serializer.Serialize(writer, null);

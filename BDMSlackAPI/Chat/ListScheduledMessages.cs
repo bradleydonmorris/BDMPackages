@@ -111,11 +111,11 @@ namespace BDMSlackAPI.Chat
 			if (reader.TokenType == JsonToken.StartObject)
 			{
 				JObject response = JObject.Load(reader);
-				if (response["ok"] != null)
+				if (response["ok"] is not null)
 					returnValue.Ok = response["ok"].Value<Boolean>();
-				if (response["response_metadata"] != null)
+				if (response["response_metadata"] is not null)
 					returnValue.ResponseMetaData = response["response_metadata"].ToObject<ResponseMetaData>(serializer);
-				if (response["scheduled_messages"] != null)
+				if (response["scheduled_messages"] is not null)
 					returnValue.ScheduledMessages = response["scheduled_messages"].ToObject<List<ScheduledMessage>>(serializer);
 			}
 			return returnValue;
@@ -140,15 +140,15 @@ namespace BDMSlackAPI.Chat
 			if (reader.TokenType == JsonToken.StartObject)
 			{
 				JObject message = JObject.Load(reader);
-				if (message["id"] != null)
+				if (message["id"] is not null)
 					returnValue.Id = message["id"].Value<String>();
-				if (message["channel_id"] != null)
+				if (message["channel_id"] is not null)
 					returnValue.ChannelId = message["channel_id"].Value<String>();
-				if (message["post_at"] != null)
+				if (message["post_at"] is not null)
 					returnValue.PostAt = message["post_at"].Value<Int64>().ToUnixTime();
-				if (message["date_created"] != null)
+				if (message["date_created"] is not null)
 					returnValue.DateCreated = message["date_created"].Value<Int64>().ToUnixTime();
-				if (message["text"] != null)
+				if (message["text"] is not null)
 					returnValue.Text = message["text"].Value<String>();
 			}
 			return returnValue;

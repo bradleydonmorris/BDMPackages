@@ -30,7 +30,7 @@ namespace BDMSlackAPI.Conversations
 		public String TeamId { get; set; }
 		public ConversationTypes ConversationTypes { get; set; }
 
-		public override String FormURLEncode()
+		public override IEnumerable<KeyValuePair<String, String>> ToPairs()
 		{
 			List<String> types = new();
 			if ((this.ConversationTypes & ConversationTypes.Default) == ConversationTypes.Default)
@@ -46,14 +46,11 @@ namespace BDMSlackAPI.Conversations
 				if ((this.ConversationTypes & ConversationTypes.IMs) == ConversationTypes.IMs)
 					types.Add("im");
 			}
-			Dictionary<String, Object> attributes = new()
-            {
-				{ "cursor", this.Cursor },
-				{ "exclude_archived", String.Join(",", this.ExcludeArchived) },
-				{ "limit", this.Limit },
-				{ "types", String.Join(",", types) }
-			};
-			return base.FormURLEncodeAttributes(attributes);
+			yield return new KeyValuePair<String, String>("token", base.Token);
+			yield return new KeyValuePair<String, String>("cursor", this.Cursor);
+			yield return new KeyValuePair<String, String>("exclude_archived", this.ExcludeArchived.ToString());
+			yield return new KeyValuePair<String, String>("limit", this.Limit.ToString());
+			yield return new KeyValuePair<String, String>("types", String.Join(",", types));
 		}
 	}
 }

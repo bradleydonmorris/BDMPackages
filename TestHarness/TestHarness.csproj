@@ -16,8 +16,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BDMCiphers\BDMCiphers.csproj" />
     <ProjectReference Include="..\BDMCommandLine\BDMCommandLine.csproj" />
+    <ProjectReference Include="..\BDMContentTypes\BDMContentTypes.csproj" />
     <ProjectReference Include="..\BDMEntityNumbering\BDMEntityNumbering.csproj" />
+    <ProjectReference Include="..\BDMJsonConverters\BDMJsonConverters.csproj" />
     <ProjectReference Include="..\BDMJsonProcs\BDMJsonProcs.csproj" />
     <ProjectReference Include="..\BDMSerilogProc\BDMSerilogProc.csproj" />
     <ProjectReference Include="..\BDMSlackAPI\BDMSlackAPI.csproj" />

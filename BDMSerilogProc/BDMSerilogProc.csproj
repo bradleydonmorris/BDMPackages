@@ -8,7 +8,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://bradleydonmorris.me/packages/BDMSerilogProc</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bradleydonmorris/BDMPackages</RepositoryUrl>
-    <Version>1.0.7</Version>
+    <Version>1.1.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>

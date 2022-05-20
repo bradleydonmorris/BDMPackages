@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
 
 namespace BDMSlackAPI.Files
 {
@@ -72,14 +73,14 @@ namespace BDMSlackAPI.Files
 		{
 			get
 			{
-				if (this.File != null)
+				if (this.File is not null)
 					return this.File.FileName;
 				else
 					return null;
 			}
 			set
 			{
-				if (this.File != null)
+				if (this.File is not null)
 					this.File.FileName = value;
 				else
 					this.File = new FileParameter()
@@ -94,7 +95,7 @@ namespace BDMSlackAPI.Files
 		public String Title {
 			get
 			{
-				if (this._Title == null)
+				if (this._Title is null)
 				{
 					this._Title = this.FileName;
 				}
@@ -115,20 +116,26 @@ namespace BDMSlackAPI.Files
 		[JsonProperty("thread_ts")]
 		public String ThreadTS { get; set; }
 
-		public override Byte[] FormBodyEncode(String formDataBoundary)
+		public override IEnumerable<KeyValuePair<String, String>> ToPairs()
 		{
-			Dictionary<String, Object> attributes = new()
-			{
-				{ "title", this.Title },
-				{ "initial_comment", this.InitialComment },
-				{ "channels", String.Join(",", this.Channels) },
-				{ "thread_ts", this.ThreadTS },
-				{ "pretty", 1 },
-				{ "filetype", this.FileType },
-				{ "filename", this.FileName },
-				{ "file", this.File }
-			};
-			return base.FormBodyEncodeAttributes(attributes, formDataBoundary);
+			yield return new KeyValuePair<String, String>("token", base.Token);
+			yield return new KeyValuePair<String, String>("pretty", base.Pretty.ToString());
+			yield return new KeyValuePair<String, String>("title", this.Title);
+			yield return new KeyValuePair<String, String>("initial_comment", this.InitialComment);
+			yield return new KeyValuePair<String, String>("channels", String.Join(",", this.Channels));
+			yield return new KeyValuePair<String, String>("thread_ts", this.ThreadTS);
+			yield return new KeyValuePair<String, String>("filetype", this.FileType);
+			yield return new KeyValuePair<String, String>("filename", this.FileName);
+		}
+
+		public override MultipartFormDataContent MultipartFormDataContent()
+		{
+			MultipartFormDataContent returnValue = new(String.Format("----------{0:N}", Guid.NewGuid()));
+			foreach (KeyValuePair<String, String> keyValuePair in this.ToPairs())
+				returnValue.Add(new StringContent(keyValuePair.Value), keyValuePair.Key);
+			returnValue.Add(this.File.ByteArrayContent(), "file", this.FileName);
+
+			return returnValue;
 		}
 	}
 }
