@@ -18,6 +18,7 @@ namespace TestHarness
 	{
 		static void Main() //(string[] args)
 		{
+			//Guid asdf = default;
 			Provider provider1 = new()
 			{
 				KeyGUID = Guid.NewGuid(),

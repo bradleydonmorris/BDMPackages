@@ -10,7 +10,8 @@
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<Description>Extesions for Microsoft.Data.SqlClient.SqlCommand for handling JSON serialization and deserialization during stored procedure calls.</Description>
 		<Copyright>Copyright © 2021 Bradley Don Morris</Copyright>
-		<Version>1.1.0</Version>
+		<Version>1.2.1</Version>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
