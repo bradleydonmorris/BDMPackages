@@ -6,11 +6,11 @@
 		<Authors>Bradley Don Morris</Authors>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<RepositoryUrl>https://github.com/bradleydonmorris/BDMPackages</RepositoryUrl>
-		<PackageProjectUrl>https://bradleydonmorris.me/packages/BDMJsonProcs</PackageProjectUrl>
+		<PackageProjectUrl>https://bradleydonmorris.me/packages/BDMJsonConvertes</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<Description>Converters for Newtonsoft Json Library.</Description>
 		<Copyright>Copyright © 2021 Bradley Don Morris</Copyright>
-		<Version>1.1.0</Version>
+		<Version>1.1.1</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

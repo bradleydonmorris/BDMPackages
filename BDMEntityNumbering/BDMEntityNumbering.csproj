@@ -6,7 +6,7 @@
 		<Authors>Bradley Don Morris</Authors>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<RepositoryUrl>https://github.com/bradleydonmorris/BDMPackages</RepositoryUrl>
-		<PackageProjectUrl>https://bradleydonmorris.me/packages/BDMSyncHttpClient</PackageProjectUrl>
+		<PackageProjectUrl>https://bradleydonmorris.me/packages/BDMEntityNumbering</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<Description>API for handling generation of strings to use as identifiers/keys.</Description>
 		<Copyright>Copyright © 2021 Bradley Don Morris</Copyright>

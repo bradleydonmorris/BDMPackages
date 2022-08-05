@@ -30,7 +30,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BDMContentTypes", "BDMConte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BDMJsonConverters", "BDMJsonConverters\BDMJsonConverters.csproj", "{DBBC2723-C5CD-460F-AA47-4F9F3A9F03E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDMEntityNumbering", "BDMEntityNumbering\BDMEntityNumbering.csproj", "{98D67AEC-B51D-44A3-B101-74B821035EAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BDMEntityNumbering", "BDMEntityNumbering\BDMEntityNumbering.csproj", "{98D67AEC-B51D-44A3-B101-74B821035EAF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BDMDateTimeConverters", "BDMDateTimeConverters\BDMDateTimeConverters.csproj", "{ABA8F943-C7C4-486D-8F4B-322BF08C6CC9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BDMSqliteBuilder", "BDMSqLiteBuilder\BDMSqliteBuilder.csproj", "{FD75125E-BD69-4239-902C-FEA31625E923}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,6 +82,14 @@ Global
 		{98D67AEC-B51D-44A3-B101-74B821035EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98D67AEC-B51D-44A3-B101-74B821035EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98D67AEC-B51D-44A3-B101-74B821035EAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABA8F943-C7C4-486D-8F4B-322BF08C6CC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABA8F943-C7C4-486D-8F4B-322BF08C6CC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABA8F943-C7C4-486D-8F4B-322BF08C6CC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABA8F943-C7C4-486D-8F4B-322BF08C6CC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD75125E-BD69-4239-902C-FEA31625E923}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD75125E-BD69-4239-902C-FEA31625E923}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD75125E-BD69-4239-902C-FEA31625E923}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD75125E-BD69-4239-902C-FEA31625E923}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

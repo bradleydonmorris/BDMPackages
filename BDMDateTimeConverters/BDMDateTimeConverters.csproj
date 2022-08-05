@@ -6,9 +6,9 @@
 		<Authors>Bradley Don Morris</Authors>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<RepositoryUrl>https://github.com/bradleydonmorris/BDMPackages</RepositoryUrl>
-		<PackageProjectUrl>https://bradleydonmorris.me/packages/BDMSlackAPI</PackageProjectUrl>
+		<PackageProjectUrl>https://bradleydonmorris.me/packages/BDMDateTimeConverters</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<Description>Wrappers for Slack's ReST API.</Description>
+		<Description>Utility library for handling date and time conversion.</Description>
 		<Copyright>Copyright © 2021 Bradley Don Morris</Copyright>
 		<Version>1.1.0</Version>
 	</PropertyGroup>
@@ -23,7 +23,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="BDMContentTypes" Version="1.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	</ItemGroup>
 

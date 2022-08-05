@@ -6,8 +6,8 @@
     <Description>Sink for Serilog to send data to a SQL stored procedure as JSON.</Description>
     <Copyright>Copyright © 2021 Bradley Don Morris</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageProjectUrl>https://bradleydonmorris.me/packages/BDMSerilogProc</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bradleydonmorris/BDMPackages</RepositoryUrl>
+    <PackageProjectUrl>https://bradleydonmorris.me/packages/BDMSerilogProc</PackageProjectUrl>
     <Version>1.1.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
