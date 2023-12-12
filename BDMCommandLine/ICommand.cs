@@ -11,11 +11,13 @@ namespace BDMCommandLine
 		public String Name { get; }
 		public String Description { get; }
 		public String Usage { get; }
+		public String Example { get; }
 		public String[] Aliases { get; }
+		public Boolean IsArgumentsValid { get; }
 		public Dictionary<String, ICommandArgument> Arguments { get; }
 		public Dictionary<String, String> ArgumentAliases { get; }
 
-		public String[] VerifyArguments(Dictionary<String, String> arguments);
+		public void VerifyArguments(Dictionary<String, String> arguments);
 		public ConsoleText[] GetHelpText();
 		public void Execute();
 	}

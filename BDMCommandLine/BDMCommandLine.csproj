@@ -8,7 +8,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/bradleydonmorris/BDMPackages</RepositoryUrl>
     <PackageProjectUrl>https://bradleydonmorris.me/packages/BDMCommandLine</PackageProjectUrl>
-    <Version>1.1.0</Version>
+    <Version>1.4.0</Version>
     <Copyright>Copyright © 2021 Bradley Don Morris</Copyright>
     <Description>Parses command line arguments for console app and provides simplified colorization for console text.</Description>
   </PropertyGroup>

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TestHarness2": {
+      "commandName": "Project",
+      "commandLineArgs": "ss2pg -ssConn \"asdfasdfasdf\""
+    }
+  }
+}

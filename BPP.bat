@@ -9,5 +9,5 @@ dotnet build --configuration Debug --output ".builds\Debug"
 dotnet nuget push ".builds\Debug\*.nupkg" --source C:\Users\%USERNAME%\source\repos\nuget
 
 :Release
-dotnet build --configuration Debug --output ".builds\Release"
-dotnet nuget push ".builds\Release\*.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json
+REM dotnet build --configuration Debug --output ".builds\Release"
+REM dotnet nuget push ".builds\Release\*.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json
