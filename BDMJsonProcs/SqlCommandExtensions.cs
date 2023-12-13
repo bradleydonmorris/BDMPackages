@@ -252,8 +252,8 @@ namespace BDMJsonProcs
 			String parameterName = "JSON",
 			params SqlParameter[] parameters)
 		{
-			List<SqlParameter> parametersList = new(parameters);
-			parametersList.Add(
+			List<SqlParameter> parametersList = new(parameters)
+			{
 				new SqlParameter
 				{
 					ParameterName = parameterName,
@@ -261,7 +261,7 @@ namespace BDMJsonProcs
 					Size = (-1),
 					Value = Newtonsoft.Json.JsonConvert.SerializeObject(inputObject)
 				}
-			);
+			};
 			return command.ExecuteScalarString(
 				commandText,
 				connectionString,
@@ -371,8 +371,8 @@ namespace BDMJsonProcs
 			String parameterName = "JSON",
 			params SqlParameter[] parameters)
 		{
-			List<SqlParameter> parametersList = new(parameters);
-			parametersList.Add(
+			List<SqlParameter> parametersList = new(parameters)
+			{
 				new SqlParameter
 				{
 					ParameterName = parameterName,
@@ -380,7 +380,7 @@ namespace BDMJsonProcs
 					Size = (-1),
 					Value = Newtonsoft.Json.JsonConvert.SerializeObject(inputObject)
 				}
-			);
+			};
 			command.ExecuteNoResults(
 				commandText,
 				connectionString,

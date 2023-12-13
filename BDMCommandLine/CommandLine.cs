@@ -1,82 +1,88 @@
-﻿#nullable enable
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BDMCommandLine
 {
 	public class CommandLine
 	{
-		public CommandLine()
+		#region Statics
+		public static ICommand? ActiveCommand { get; set; }
+
+		public static Commands Commands { get; set; } = [];
+
+		//public static Dictionary<String, ICommand> Commands { get; set; } = [];
+		//public static Dictionary<String, String> CommandAliases { get; set; } = [];
+
+		public static void AddCommand(ICommand command)
+			=> CommandLine.Commands.Add(command);
+		public static void AddCommands(params ICommand[] commands)
 		{
-			this.ParsedArguments = new();
-			this.ActiveCommandArguments = new();
-			this.ProvidedArguments = new();
-			this.Commands = new();
-			this.CommandAliases = new();
-			this.IsActiveCommandValid = false;
+			foreach (ICommand command in commands)
+				CommandLine.AddCommand(command);
 		}
 
+		public static void ReplaceCommand(ICommand newCommand)
+			=> CommandLine.Commands.Replace(newCommand);
+		#endregion Statics
+
+		#region Contructors
 		public CommandLine(String defaultCommand)
 		{
-			this.ParsedArguments = new();
-			this.ActiveCommandArguments = new();
-			this.ProvidedArguments = new();
-			this.Commands = new();
-			this.CommandAliases = new();
+			CommandLine.Commands = [];
 			this.DefaultCommand = defaultCommand;
+			this.ParsedArguments = [];
+			this.ActiveCommandArguments = [];
+			this.ProvidedArguments = [];
+			this.SubCommandProvided = String.Empty;
 			this.IsActiveCommandValid = false;
+			CommandLine.AddCommand(new HelpCommand());
 		}
 
-		public String? DefaultCommand { get; set; }
+		public CommandLine()
+			: this("help")
+		{ }
 
-		public ICommand? ActiveCommand { get; set; }
+		public CommandLine(String[]? args)
+			: this("help")
+			=> this.Parse(args);
 
-		public Dictionary<String, String?> ParsedArguments { get; set; }
-		public Dictionary<String, String> ActiveCommandArguments { get; set; }
-		public Dictionary<String, String?> ProvidedArguments { get; set; }
+		public CommandLine(String defaultCommand, ICommand[] commands)
+			: this(defaultCommand)
+		=> CommandLine.AddCommands(commands);
 
-		public Dictionary<String, ICommand> Commands { get; set; }
-		public Dictionary<String, String> CommandAliases { get; set; }
+		public CommandLine(String defaultCommand, ICommand[] commands, String[]? args)
+			: this(defaultCommand, commands)
+			=> this.Parse(args);
 
+		public CommandLine(ICommand[] commands)
+			: this("help", commands)
+		{ }
+
+		public CommandLine(ICommand[] commands, String[]? args)
+			: this("help", commands)
+			=> this.Parse(args);
+		#endregion Contructors
+
+		public String DefaultCommand { get; set; }
+
+		public Dictionary<String, String?> ParsedArguments { get; set; } = [];
+		public Dictionary<String, String> ActiveCommandArguments { get; set; } = [];
+		public Dictionary<String, String?> ProvidedArguments { get; set; } = [];
+
+		public String SubCommandProvided { get; set; } = String.Empty;
 		public String? SubCommand { get; set; }
-		public Boolean IsActiveCommandValid { get; set; }
-
-		public void ShowHelp()
-		{
-			if (this.SubCommand is not null)
-				CommandLine.OutputTextCollection(this.Commands[this.SubCommand].GetHelpText());
-			else
-				CommandLine.OutputTextCollection(this.GetHelpText());
-		}
-
-		public ConsoleText[] GetHelpText()
-		{
-			List<ConsoleText> returnValue = new();
-			Boolean isFirst = true;
-			foreach (String key in this.Commands.Keys)
-			{
-				if (!isFirst)
-					returnValue.Add(ConsoleText.BlankLine());
-				else isFirst = false;
-				returnValue.AddRange(this.Commands[key].GetHelpText());
-			}
-			returnValue.Add(ConsoleText.BlankLine());
-			return returnValue.ToArray();
-		}
+		public Boolean IsActiveCommandValid { get; set; } = false;
 
 		private void VerifyCommand()
 		{
 			if (this.SubCommand is not null)
 			{
-				this.ActiveCommand = this.Commands[this.SubCommand];
-				if (this.ActiveCommand is not null)
+				CommandLine.ActiveCommand = CommandLine.Commands[this.SubCommand];
+				if (CommandLine.ActiveCommand is not null)
 				{
-					if (this.ActiveCommand.Arguments is not null)
-						this.ActiveCommand.VerifyArguments(this.ParsedArguments);
-					this.IsActiveCommandValid = this.ActiveCommand.IsArgumentsValid;
+					if (CommandLine.ActiveCommand.Arguments is not null)
+						CommandLine.ActiveCommand.VerifyArguments(this.ParsedArguments);
+					this.IsActiveCommandValid = CommandLine.ActiveCommand.IsArgumentsValid;
 				}
 				else
 					this.IsActiveCommandValid = false;
@@ -85,35 +91,51 @@ namespace BDMCommandLine
 				this.IsActiveCommandValid = false;
 		}
 
-		public void AddCommand(ICommand command)
-		{
-			String commandNameLower = command.Name.ToLower();
-			this.Commands.Add(commandNameLower, command);
-			foreach (String alias in command.Aliases)
-				this.CommandAliases.Add(alias.ToLower(), commandNameLower);
-			if (!this.CommandAliases.ContainsKey(commandNameLower))
-				this.CommandAliases.Add(commandNameLower, commandNameLower);
-		}
 
-		public Boolean ParseArguments(String[]? arguments)
+		public void Parse(String[]? arguments)
 		{
-			Boolean returnValue = true;
+			Boolean doExecute = true;
+
+			//No args, then try default command
 			if (
-				arguments is null
-				|| (
-					arguments.Length == 0
-					&& this.DefaultCommand is not null
+				(
+					arguments is null
+					|| arguments.Length == 0
 				)
+				&& this.DefaultCommand is not null
 			)
-				this.SubCommand = this.DefaultCommand;
-			else if (arguments.Length > 0)
+				arguments = [ this.DefaultCommand ];
+
+			//if "help", then try to mutate args to match help command
+			if (
+				arguments is not null
+				&& arguments.Length > 0
+				&& arguments[0].Equals("Help", StringComparison.CurrentCultureIgnoreCase)
+			)
 			{
-				if (this.CommandAliases.ContainsKey(arguments[0].ToLower()))
-					this.SubCommand = this.CommandAliases[arguments[0].ToLower()];
+				//Help requested for a specific command
+				//If 2 or more args are passed, it's assumned that the second is a command name,
+				// and all other args are ignored.
+				if (arguments.Length.Equals(2))
+					arguments = [ "Help", "-c", arguments[1] ];
 			}
+
+			//Establish command
+			if (arguments is not null && arguments.Length > 0)
+			{
+				this.SubCommandProvided = arguments[0];
+				if (CommandLine.Commands.TryGet(this.SubCommandProvided, out ICommand? command)
+					&& command is not null
+				)
+				{
+					this.SubCommand = command.Name;
+					CommandLine.ActiveCommand = command;
+				}
+			}
+
 			if (this.SubCommand is not null)
 			{
-				this.ProvidedArguments = new();
+				this.ProvidedArguments = [];
 				if (
 					arguments is not null
 					&& arguments.Length > 1
@@ -126,7 +148,7 @@ namespace BDMCommandLine
 							previous = arguments[loop - 1];
 						if (argument.StartsWith("--"))
 							this.ProvidedArguments.Add(argument, null);
-						else if (argument.StartsWith("-"))
+						else if (argument.StartsWith('-'))
 							this.ProvidedArguments.Add(argument, null);
 						else if (
 							!String.IsNullOrWhiteSpace(previous)
@@ -141,39 +163,51 @@ namespace BDMCommandLine
 						(
 							key.StartsWith("--")
 								? key[2..]
-								: key.StartsWith("-")
+								: key.StartsWith('-')
 									? key[1..]
 									: key
 						), this.ProvidedArguments[key]);
 				this.VerifyCommand();
 			}
+
+			//No command
 			if (this.SubCommand is null)
 			{
 				CommandLine.OutputException("No command was provided.");
-				returnValue = false;
+				doExecute = false;
 			}
+
+			//Command not found
 			else if (
 				this.SubCommand is not null
-				&& this.ActiveCommand is null
+				&& CommandLine.ActiveCommand is null
 			)
 			{
-				CommandLine.OutputException($"\"{this.SubCommand}\" is not a valid command.");
-				returnValue = false;
+				CommandLine.OutputException($"\"{this.SubCommandProvided}\" is not a valid command.");
+				doExecute = false;
 			}
+
+			//Command is found, but arguments provided aren't valid
 			else if (
-				this.SubCommand is not null
-				&& this.ActiveCommand is not null
+				CommandLine.ActiveCommand is not null
 				&& !this.IsActiveCommandValid
 			)
 			{
-				String message = $"\"{this.SubCommand}\" is valid command however, there are arguments that may be invalid.\n";
-				foreach (String argumentKey in this.ActiveCommand.Arguments.Keys)
-					if (!this.ActiveCommand.Arguments[argumentKey].IsValid)
-						message += $"{this.ActiveCommand.Arguments[argumentKey].InvalidMessage}\n";
+				String message = $"\"{this.SubCommandProvided}\" is a valid command however, there are arguments that may be invalid.\n";
+				foreach (ICommandArgument argument in CommandLine.ActiveCommand.Arguments)
+					if (!argument.IsValid)
+						message += $"{argument.InvalidMessage}\n";
+
+				//foreach (String argumentKey in CommandLine.ActiveCommand.Arguments.Keys)
+				//	if (!CommandLine.ActiveCommand.Arguments[argumentKey].IsValid)
+				//		message += $"{CommandLine.ActiveCommand.Arguments[argumentKey].InvalidMessage}\n";
+
 				CommandLine.OutputException(message);
-				returnValue = false;
+				CommandLine.OutputTextCollection(CommandLine.ActiveCommand.GetHelpText());
+				doExecute = false;
 			}
-			return returnValue;
+			if (doExecute)
+				CommandLine.ActiveCommand?.Execute();
 		}
 
 		public static void OutputException(String message)
@@ -224,8 +258,5 @@ namespace BDMCommandLine
 		{
 			System.Console.Clear();
 		}
-
-		public void Execute()
-			=> this.ActiveCommand?.Execute();
 	}
 }

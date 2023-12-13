@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BDMCommandLine
 {
 	public class ConsoleText
 	{
-		public static ConsoleColor DefaultForegroundColor = System.Console.ForegroundColor;
-		public static ConsoleColor DefaultBackgroundColor = System.Console.BackgroundColor;
+		public static ConsoleColor DefaultForegroundColor { get; set; } = Console.ForegroundColor;
+		public static ConsoleColor DefaultBackgroundColor { get; set; } = Console.BackgroundColor;
 
 		public ConsoleColor ForegroundColor { get; set; }
 		public ConsoleColor BackgroundColor { get; set; }

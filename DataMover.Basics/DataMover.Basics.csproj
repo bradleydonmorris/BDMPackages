@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <Title>Data Mover</Title>
+	  <Version>1.0.0</Version>
+	  <Authors>Bradley Don Morris</Authors>
+	  <Description>Includes basic plugins for SQL Server, PostgreSQL, and Delimintated Files</Description>
+	  <Copyright>Copyright © 2023 Bradley Don Morris</Copyright>
+	  <PackageProjectUrl>https://bradleydonmorris.me/packages/DataMover</PackageProjectUrl>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <RepositoryType>https://github.com/bradleydonmorris/DataMover</RepositoryType>
+	  <PlatformTarget>x64</PlatformTarget>
+	  <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BDMCommandLine\BDMCommandLine.csproj" />
+		<ProjectReference Include="..\DataMover.Core\DataMover.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="README.md">
+	    <PackagePath>\</PackagePath>
+	    <Pack>True</Pack>
+	  </None>
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="COPY &quot;$(ProjectDir)$(OutDir)$(AssemblyName).dll&quot; &quot;C:\Users\bmorris\source\repos\bradleydonmorris\BDMPackages\DataMover\Published\plugins\&quot;&#xD;&#xA;COPY &quot;$(ProjectDir)$(OutDir)$(AssemblyName).dll&quot; &quot;C:\Users\bmorris\source\repos\bradleydonmorris\BDMPackages\DataMover\bin\Debug\net8.0\win-x64\plugins\&quot;" />
+	</Target>
+
+</Project>

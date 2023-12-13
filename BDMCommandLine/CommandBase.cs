@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BDMCommandLine
 {
@@ -12,105 +9,57 @@ namespace BDMCommandLine
 
 		public CommandBase(String name, String description, String usage, String example, String[] aliases, ICommandArgument[] arguments)
 		{
-			this._Name = name;
-			this._Description = description;
-			this._Usage = usage;
-			this._Example = example;
-			this._Aliases = aliases;
-			this._Arguments = new();
-			this._ArgumentAliases = new();
-			foreach (ICommandArgument argument in arguments)
-			{
-				String argumentNameLower = argument.Name.ToLower();
-				this._Arguments.Add(argumentNameLower, argument);
-				if (!String.IsNullOrWhiteSpace(argument.Alias))
-					this._ArgumentAliases.Add(argument.Alias.ToLower(), argumentNameLower);
-				if (!this._ArgumentAliases.ContainsKey(argumentNameLower))
-					this._ArgumentAliases.Add(argumentNameLower, argumentNameLower);
-			}
+			this.Name = name;
+			this.Description = description;
+			this.Usage = usage;
+			this.Example = example;
+			this.Aliases = aliases;
+			this.Arguments.AddRange(arguments);
 		}
 
-
-		private readonly String _Name;
-		public virtual String Name => this._Name;
-
-		private readonly String _Description;
-		public virtual String Description => this._Usage;
-
-		private readonly String _Usage;
-		public virtual String Usage => this._Usage;
-
-		private readonly String _Example;
-		public virtual String Example => this._Example;
-
-		private readonly String[] _Aliases;
-		public virtual String[] Aliases => this._Aliases;
-
-		public Boolean _IsArgumentsValid;
-		public Boolean IsArgumentsValid => this._IsArgumentsValid;
+		public virtual String Name { get; set; } = String.Empty;
+		public virtual String Description { get; set; } = String.Empty;
+		public virtual String Usage { get; set; } = String.Empty;
+		public virtual String Example { get; set; } = String.Empty;
+		public virtual String[] Aliases { get; set; } = [];
+		public Boolean IsArgumentsValid { get; set; } = false;
+		public virtual Arguments Arguments { get; set; } = [];
 
 
-		private readonly Dictionary<String, ICommandArgument> _Arguments;
-		public virtual Dictionary<String, ICommandArgument> Arguments => this._Arguments;
-
-		private readonly Dictionary<String, String> _ArgumentAliases;
-		public Dictionary<String, String> ArgumentAliases => this._ArgumentAliases;
-
-
-		public virtual void VerifyArguments(Dictionary<String, String> arguments)
+		public virtual void VerifyArguments(Dictionary<String, String?> arguments)
 		{
-			this._IsArgumentsValid = true;
-			if (this._Arguments is not null && this._Arguments.Count > 0)
+			this.IsArgumentsValid = true;
+			if (this.Arguments.Count > 0)
 			{
 				foreach (String providedArgumentKey in arguments.Keys)
-				{
-					if (this._ArgumentAliases.ContainsKey(providedArgumentKey.ToLower()))
-					{
-						String foundArgumentKey = this._ArgumentAliases[providedArgumentKey.ToLower()];
-						if (
-							!String.IsNullOrEmpty(foundArgumentKey)
-							&& this._Arguments.ContainsKey(foundArgumentKey)
-						)
-						{
-							this._Arguments[foundArgumentKey.ToLower()].SetValue(arguments[providedArgumentKey]);
-						}
-					}
-				}
+					if (this.Arguments.Contains(providedArgumentKey))
+						this.Arguments[providedArgumentKey]?.SetValue(arguments[providedArgumentKey]);
 			}
-			foreach (String argumentKey in this._Arguments.Keys)
+			foreach (ICommandArgument commandArgument in this.Arguments)
 			{
+				if (commandArgument.IsMissing)
+					commandArgument.SetValue(commandArgument.DefaultValue);
 				if (
-					this._Arguments[argumentKey].IsMissing
-					&& this._Arguments[argumentKey].IsFlag
+					!commandArgument.IsValid
+					&& commandArgument.IsRequired
 				)
-					this._Arguments[argumentKey].SetValue(this._Arguments[argumentKey].DefaultValue);
-				if (
-					this._Arguments[argumentKey].IsMissing
-					&& this._Arguments[argumentKey].IsRequired
-
-				)
-					this._Arguments[argumentKey].SetValue(this._Arguments[argumentKey].DefaultValue);
-				if (!this._Arguments[argumentKey].IsValid)
-					this._IsArgumentsValid = false;
+					this.IsArgumentsValid = false;
 			}
 		}
 
 		public virtual ConsoleText[] GetHelpText()
 		{
-			List<ConsoleText> returnValue = new()
-			{
-				ConsoleText.Green($"Command: {this._Name}")
-			};
+			List<ConsoleText> returnValue = [ ConsoleText.Green($"Command: {this.Name}") ];
 			if (this.Aliases.Length > 0)
 			{
 				returnValue.Add(ConsoleText.Green($" [ {String.Join(", ", this.Aliases)} ]"));
 			}
 			returnValue.Add(ConsoleText.BlankLine());
-			returnValue.Add(ConsoleText.White($"   {this._Description}"));
+			returnValue.Add(ConsoleText.White($"   {this.Description}"));
 			returnValue.Add(ConsoleText.BlankLine());
-			returnValue.Add(ConsoleText.White($"   Usage: {this._Usage}"));
+			returnValue.Add(ConsoleText.White($"   Usage: {this.Usage}"));
 			returnValue.Add(ConsoleText.BlankLine());
-			if (this._Arguments is not null && this._Arguments.Count > 0)
+			if (this.Arguments.Count > 0)
 			{
 				returnValue.Add(ConsoleText.BlankLine());
 				returnValue.Add(ConsoleText.White("   Arguments: ("));
@@ -118,29 +67,27 @@ namespace BDMCommandLine
 				returnValue.Add(ConsoleText.DarkRed(", "));
 				returnValue.Add(ConsoleText.DarkGreen("optional"));
 				returnValue.Add(ConsoleText.White(")"));
-				foreach (String argumentKey in this._Arguments.Keys)
+				foreach (ICommandArgument commandArgument in this.Arguments)
 				{
 					returnValue.Add(ConsoleText.BlankLine());
 					returnValue.Add(ConsoleText.Default($"   "));
-					returnValue.AddRange(this._Arguments[argumentKey].GetHelpText());
+					returnValue.AddRange(commandArgument.GetHelpText());
 				}
 			}
 			returnValue.Add(ConsoleText.BlankLine());
 
-			if (!String.IsNullOrEmpty(this._Example))
+			if (!String.IsNullOrEmpty(this.Example))
 			{
 				returnValue.Add(ConsoleText.BlankLine());
 				returnValue.Add(ConsoleText.White($"   Example:"));
 				returnValue.Add(ConsoleText.BlankLine());
-				returnValue.Add(ConsoleText.Green($"   {this._Example}"));
+				returnValue.Add(ConsoleText.Green($"   {this.Example}"));
 				returnValue.Add(ConsoleText.BlankLine());
 			}
-			return returnValue.ToArray();
+			return [.. returnValue];
 		}
 
 		public virtual void Execute()
-		{
-			throw new NotImplementedException();
-		}
+			=> throw new NotImplementedException();
 	}
 }

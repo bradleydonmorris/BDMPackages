@@ -1,46 +1,44 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using BDMCommandLine;
-using SQLServerPostgreSQLInterface.Commands;
+using DataMover.Basics.Commands;
+using DataMover.Core;
+using DataMover.Core.Descriptors;
+using System.Reflection;
+
+
+CommandLine commandLine = new("Help");
+PluginDescriptors pluginDescriptors = [];
+//String pluginDirectoryPath = Path.Combine(AppContext.BaseDirectory, "plugins");
+//if (!Directory.Exists(pluginDirectoryPath))
+//{
+//	Directory.CreateDirectory(pluginDirectoryPath);
+//}
+//foreach (String filePath in Directory.GetFiles(pluginDirectoryPath, "*.dll"))
+//{
+//	Assembly assembly = Assembly.LoadFile(filePath);
+//	foreach (Type type in assembly.GetTypes())
+//	{
+//		if (typeof(PluginDescriptor).IsAssignableFrom(type))
+//		{
+//			if (Activator.CreateInstance(type) is PluginDescriptor pluginDescriptor)
+//				pluginDescriptors.Add(pluginDescriptor);
+//		}
+//		else if (typeof(ICommand).IsAssignableFrom(type))
+//		{
+//			if (Activator.CreateInstance(type) is ICommand command)
+//				CommandLine.Commands.Add(command);
+//		}
+//	}
+//}
+
+CommandLine.Commands.Replace(new PostgreSQLQueryExecuteScalar());
+CommandLine.Commands.Replace(new DataMoverHelpCommand(pluginDescriptors));
 
 ConsoleText.DefaultForegroundColor = Console.ForegroundColor;
 ConsoleText.DefaultBackgroundColor = Console.BackgroundColor;
 
+commandLine.Parse(args);
 
-Console.WriteLine("Hello, World!");
-CommandLine commandLine = new();
-commandLine.AddCommand(new SQLServer2PostgreSQL());
-
-if (args == null)
-{
-	Console.WriteLine("Its null");
-}
-if (commandLine.ParseArguments(args))
-{
-	commandLine.Execute();
-	Console.ResetColor();
-}
-
-
-
-/*
-		static void Main() //(string[] args)
-		{
-			String connectionString = "Server=tcp:sarteam.database.windows.net,1433;Initial Catalog=SARTeamCore;Persist Security Info=False;User ID=API;Password=2caIz49u$d61r%7dC;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-			dynamic requestAuthenticatedUser = Newtonsoft.Json.JsonConvert.DeserializeObject("{ \"ActiveTeam\":null, \"TeamUser\":null, \"ProfilePhotoURL\":null, \"DisplayName\":\"Bradley Don Morris\", \"EmailAddress\":\"bradleydonmorris@hotmail.com\", \"DefaultTeam\":null, \"Teams\":null, \"Profile\":null, \"KeyGUID\":\"00000000-0000-0000-0000-000000000000\" } ");
-			using SqlCommand sqlCommand = new();
-			String t = sqlCommand.ExecuteScalarString(
-				$"[Users].[Authenticate]",
-				connectionString,
-				new SqlParameter
-				{
-					ParameterName = "AuthenticatedUserJSON",
-					SqlDbType = SqlDbType.NVarChar,
-					Size = (-1),
-					Value = Newtonsoft.Json.JsonConvert.SerializeObject(requestAuthenticatedUser)
-				}
-			);
-
-		}
-
-
-*/
+Console.ResetColor();
+Console.ForegroundColor = ConsoleText.DefaultForegroundColor;
+Console.BackgroundColor = ConsoleText.DefaultBackgroundColor;
