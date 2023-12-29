@@ -124,7 +124,8 @@ namespace BDMCommandLine
 			if (arguments is not null && arguments.Length > 0)
 			{
 				this.SubCommandProvided = arguments[0];
-				if (CommandLine.Commands.TryGet(this.SubCommandProvided, out ICommand? command)
+				if (
+					CommandLine.Commands.TryGet(this.SubCommandProvided, out ICommand? command)
 					&& command is not null
 				)
 				{
