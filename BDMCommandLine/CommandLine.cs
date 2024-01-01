@@ -1,11 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Reflection;
+using System.Xml.Linq;
 
 namespace BDMCommandLine
 {
 	public class CommandLine
 	{
 		#region Statics
+		public static AssetVersions AssetVersions { get; set; } = [
+			new AssetVersion(
+				FileVersionInfo.GetVersionInfo(typeof(CommandLine).Assembly.Location),
+				"https://bradleydonmorris.me/packages/BDMCommandLine"
+			)
+		];
+
 		public static ICommand? ActiveCommand { get; set; }
 
 		public static Commands Commands { get; set; } = [];
@@ -36,6 +46,7 @@ namespace BDMCommandLine
 			this.SubCommandProvided = String.Empty;
 			this.IsActiveCommandValid = false;
 			CommandLine.AddCommand(new HelpCommand());
+			CommandLine.AddCommand(new VersionCommand());
 		}
 
 		public CommandLine()

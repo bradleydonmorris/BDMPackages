@@ -39,6 +39,8 @@ ConsoleText.DefaultBackgroundColor = Console.BackgroundColor;
 
 commandLine.Parse(args);
 
+
+
 Console.ResetColor();
 Console.ForegroundColor = ConsoleText.DefaultForegroundColor;
 Console.BackgroundColor = ConsoleText.DefaultBackgroundColor;

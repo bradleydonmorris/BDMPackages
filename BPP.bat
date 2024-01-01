@@ -1,15 +1,7 @@
 @ECHO OFF
 REM nuget setapikey {apikey} -Source https://api.nuget.org/v3/index.json
-ECHO %1
-IF "%1" == "Debug" GOTO Debug
-IF "%1" == "Release" GOTO Release
 
-:Debug
 dotnet build --configuration Debug --output ".builds\Debug"
+dotnet build --configuration Release --output ".builds\Release"
 dotnet nuget push ".builds\Debug\*.nupkg" --source C:\Users\%USERNAME%\source\repos\nuget
-dotnet nuget push ".builds\Release\*.nupkg" --source C:\Users\%USERNAME%\source\repos\nuget
-
-:Release
-REM nuget setApiKey oy2ozhbgyt36heuun6oqgasjw5z2odtu7dwwiwflmatmyy
-REM dotnet build --configuration Debug --output ".builds\Release"
-REM dotnet nuget push ".builds\Release\*.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json
+dotnet nuget push ".builds\Release\*.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json
