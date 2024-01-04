@@ -9,7 +9,7 @@ namespace BDMCommandLine
         public const String CommandName = "Version";
         public VersionCommand()
             : base(
-                HelpCommand.CommandName,
+				VersionCommand.CommandName,
                 "Used to display version information.",
 				"Version",
                 "{EXEPath} version",

@@ -10,8 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BDMCommandLine\BDMCommandLine.csproj" />
-    <ProjectReference Include="..\DataMover.Basics\DataMover.Basics.csproj" />
-    <ProjectReference Include="..\DataMover.Core\DataMover.Core.csproj" />
   </ItemGroup>
 
 </Project>

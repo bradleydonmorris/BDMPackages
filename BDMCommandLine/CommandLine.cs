@@ -10,10 +10,14 @@ namespace BDMCommandLine
 	{
 		#region Statics
 		public static AssetVersions AssetVersions { get; set; } = [
-			new AssetVersion(
-				FileVersionInfo.GetVersionInfo(typeof(CommandLine).Assembly.Location),
-				"https://bradleydonmorris.me/packages/BDMCommandLine"
-			)
+			new AssetVersion()
+			{
+				Name = "BDMCommandLine",
+				Version = "v1.6.4",
+				Description = "Parses command line arguments for console app and provides simplified colorization for console text.",
+				Copyright = "Copyright © 2021 Bradley Don Morris",
+				InfoURL = "https://bradleydonmorris.me/packages/BDMCommandLine"
+			}
 		];
 
 		public static ICommand? ActiveCommand { get; set; }
