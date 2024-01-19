@@ -9,8 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".repofiles", ".repofiles", 
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		BPP.bat = BPP.bat
+		BuildAndPublish.ps1 = BuildAndPublish.ps1
 		LICENSE = LICENSE
-		Nuget.keys.txt = Nuget.keys.txt
 		README.md = README.md
 	EndProjectSection
 EndProject

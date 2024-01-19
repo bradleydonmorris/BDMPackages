@@ -111,8 +111,25 @@ namespace BDMCommandLine
 		{
 			Boolean doExecute = true;
 
-			//No args, then try default command
+			//Remove wrapping quotes
 			if (
+				arguments is not null
+				&& arguments.Length > 0
+			)
+			{
+				const String quote = "\"";
+				for (Int32 index = 0; index < arguments.Length; index ++)
+				{
+					if (
+						arguments[index].StartsWith(quote)
+						&& arguments[index].EndsWith(quote)
+					)
+						arguments[index] = arguments[index][1..^1];
+				}
+			}
+
+            //No args, then try default command
+            if (
 				(
 					arguments is null
 					|| arguments.Length == 0
